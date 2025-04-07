@@ -4,3 +4,5 @@ install
 log
 build
 cscope*
+__pycache__
+test
