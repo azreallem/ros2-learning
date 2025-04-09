@@ -18,7 +18,7 @@ class PatrolClient : public rclcpp::Node {
 	public:
 		PatrolClient() : Node("patrol_client") {
 			patrol_client_ = this->create_client<Patrol>("patrol");
-			timer_ = this->create_wall_timer(10s, std::bind(&PatrolClient::timer_callback, this));
+			timer_ = this->create_wall_timer(30s, std::bind(&PatrolClient::timer_callback, this));
 			srand(time(NULL));
 		}
 

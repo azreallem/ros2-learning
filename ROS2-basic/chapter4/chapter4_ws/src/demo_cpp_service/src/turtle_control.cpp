@@ -78,9 +78,11 @@ class TurtleController : public rclcpp::Node
 			double current_x = pose->x;
 			double current_y = pose->y;
 			RCLCPP_INFO(this->get_logger(), "Current local: (x=%f, y=%f)", current_x, current_y);
+			RCLCPP_INFO(this->get_logger(), "target_x_, target_y_: (x=%f, y=%f)", target_x_, target_y_);
 
-			double distance =  std::sqrt(std::pow(target_x_ - current_x, 2) + std::pow(target_y_ - current_y, 2));
+			double distance =  std::sqrt((target_x_ - current_x) * (target_x_ - current_x) + (target_y_ - current_y) * (target_y_ - current_y));
 			double angle = std::atan2(target_y_ - current_y, target_x_ - current_x) - pose->theta;
+			RCLCPP_INFO(this->get_logger(), "distance: %f, angle: %f", distance, angle);
 
 			if (distance > 0.1) {
 				if (fabs(angle) > 0.2)

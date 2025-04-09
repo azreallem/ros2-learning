@@ -27,8 +27,8 @@ endif()
 add_executable(turtle_control src/turtle_control.cpp)
 ament_target_dependencies(turtle_control rclcpp geometry_msgs turtlesim_msgs chapter4_interfaces)
 
-add_executable(turtle_client src/turtle_client.cpp)
-ament_target_dependencies(turtle_client rclcpp geometry_msgs turtlesim_msgs chapter4_interfaces)
+add_executable(patrol_client src/patrol_client.cpp)
+ament_target_dependencies(patrol_client rclcpp geometry_msgs turtlesim_msgs chapter4_interfaces)
 
 include_directories(
   include
@@ -38,7 +38,12 @@ include_directories(
 
 install (TARGETS
   turtle_control
-  turtle_client
+  patrol_client
   DESTINATION lib/${PROJECT_NAME}
 )
+
+install (DIRECTORY launch
+  DESTINATION share/${PROJECT_NAME}
+)
+
 ament_package()
