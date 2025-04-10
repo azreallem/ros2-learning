@@ -10,14 +10,18 @@ using SystemStatus = status_interfaces::msg::SystemStatus;
 
 class SysStatusDisplay : public rclcpp::Node {
 	public:
-		SysStatusDisplay() : Node("sys_status_display") {
+		SysStatusDisplay() : Node("sys_status_display")
+		{
 			subscription_ = this->create_subscription<SystemStatus>(
-					"sys_status", 10, [&](const SystemStatus::SharedPtr msg)->
-					void{label_->setText(get_qstr_from_msg(msg));}
+						"sys_status", 10,
+						[&](const SystemStatus::SharedPtr msg)-> void {
+							label_->setText(get_qstr_from_msg(msg));
+						}
 					);
 			label_ = new QLabel(get_qstr_from_msg(std::make_shared<SystemStatus>()));
 			label_->show();
 		}
+
 		QString get_qstr_from_msg(const SystemStatus::SharedPtr msg) {
 			std::stringstream show_str;
 			show_str

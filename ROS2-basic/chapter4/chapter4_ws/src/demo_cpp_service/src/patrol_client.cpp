@@ -23,6 +23,7 @@ class PatrolClient : public rclcpp::Node {
 		}
 
 		void timer_callback() {
+			// 1. 检测服务器是否上线
 			while (!patrol_client_->wait_for_service(std::chrono::seconds(1))) {
 				if (!rclcpp::ok()) {
 					RCLCPP_ERROR(this->get_logger(), "Waitting service break up ...");
@@ -30,11 +31,13 @@ class PatrolClient : public rclcpp::Node {
 				}
 				RCLCPP_INFO(this->get_logger(), "Waitting servcie link ...");
 			}
+			// 2. 构造请求的对象
 			auto request = std::make_shared<Patrol::Request>();
 			request->target_x = rand() % 15;
 			request->target_y = rand() % 15;
 			RCLCPP_INFO(this->get_logger(), "Request patrol: (%f, %f)", request->target_x, request->target_y);
 
+			// 3. 发送请求
 			patrol_client_->async_send_request(
 				request,
 				[&](rclcpp::Client<Patrol>::SharedFuture result_future) -> void {

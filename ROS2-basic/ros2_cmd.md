@@ -67,6 +67,18 @@ ros2 interface show std_msgs/msg/Int32
 ros2 interface show your_package/srv/YourService
 ```
 
+# param
+
+```bash
+ros2 param list
+ros2 param describe /turtlesim background_r
+ros2 param get /turtlesim background_r
+ros2 param set /turtlesim background_r 255
+ros2 param dump /turtlesim > turtlesim_param.yaml
+ros2 run turtlesim turtlesim_node --ros-args --parm-file turtlesim_param.yaml
+ros2 run demo_python_service face_detect_node --ros-args -p model:=cnn
+```
+
 # pkg
 
 ```bash
